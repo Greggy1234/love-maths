@@ -14,6 +14,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
     }
+    document.getElementById("answer-box").addEventListener("keydown",function (e) {
+        if (e.key === "Enter") {
+            checkAnswer();
+        }
+    })
     runGame("addition");
 })
 
@@ -23,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
 * and after the user's answer has been processed
 */
 function runGame(gameType) {
+    document.getElementById("answer-box").value = "";
+    document.getElementById("answer-box").focus();
     // Creates 2 random numbers between 1-25
     let num1 = Math.ceil(Math.random() * 25);
     let num2 = Math.ceil(Math.random() * 25);
@@ -45,6 +52,7 @@ function runGame(gameType) {
 
 function checkAnswer() {
     let userAnswer = parseInt(document.getElementById("answer-box").value);
+    console.log(document.getElementById("answer-box"));
     let calculatedAnswer = calculateCorrectAnswer();
     let isCorrect = calculatedAnswer.includes(userAnswer);
     if (isCorrect) {
@@ -54,7 +62,6 @@ function checkAnswer() {
         alert(`You idiot! You answerd ${userAnswer}. That's completely wrong. The correct answer is ${calculatedAnswer[0]}`);
         incrementWrongScore();
     }
-
     runGame(calculatedAnswer[1]);
 }
 
